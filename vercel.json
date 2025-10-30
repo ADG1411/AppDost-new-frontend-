@@ -1,0 +1,13 @@
+{
+  "framework": "vite",
+  "buildCommand": "cd technova-frontend && npm run build",
+  "outputDirectory": "technova-frontend/dist",
+  "installCommand": "cd technova-frontend && npm install",
+  "devCommand": "cd technova-frontend && npm run dev",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
