@@ -94,7 +94,7 @@ const Header = () => {
         animate="visible"
         variants={prefersReducedMotion ? {} : headerVariants}
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ultra-smooth gpu-accelerated',
           isScrolled 
             ? 'glass shadow-lg border-b border-white/10' 
             : 'bg-transparent'
@@ -122,7 +122,7 @@ const Header = () => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center justify-center flex-1 mx-8" role="navigation">
+            <nav className="hidden lg:flex items-center justify-center flex-1 mx-8 smooth-navigation" role="navigation">
               <div className="flex items-center space-x-6 xl:space-x-8">
                 {navigation.map((item) => (
                   <motion.button
@@ -130,8 +130,14 @@ const Header = () => {
                     onClick={() => handleNavClick(item.href, item.name)}
                     whileHover={prefersReducedMotion ? {} : { y: -2 }}
                     whileTap={prefersReducedMotion ? {} : { y: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 25,
+                      mass: 0.5
+                    }}
                     className={cn(
-                      'text-sm lg:text-base font-medium transition-colors duration-200 focus-visible px-4 py-2.5 rounded-lg relative',
+                      'text-sm lg:text-base font-medium transition-colors duration-200 focus-visible px-4 py-2.5 rounded-lg relative smooth-button ultra-smooth',
                       activeSection === item.name.toLowerCase()
                         ? 'text-accent bg-accent/10'
                         : 'text-white hover:text-accent hover:bg-white/5'

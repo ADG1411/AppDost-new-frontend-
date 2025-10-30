@@ -56,7 +56,7 @@ const MetricCard = ({ metric, index, shouldAnimate }) => {
         scale: 1.05,
         transition: { duration: 0.2 }
       }}
-      className="card group cursor-default"
+      className="card group cursor-default bg-black/30 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50"
     >
       {/* Icon */}
       <div className="flex justify-center mb-4">
@@ -77,7 +77,7 @@ const MetricCard = ({ metric, index, shouldAnimate }) => {
       </div>
 
       {/* Label */}
-      <h3 className="text-center text-muted font-medium text-lg">
+      <h3 className="text-center text-gray-300 font-medium text-lg">
         {metric.label}
       </h3>
 
@@ -109,9 +109,9 @@ const Metrics = () => {
       ref={elementRef}
       className="py-20 lg:py-32 relative overflow-hidden"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary-900 via-primary-900/95 to-primary-900"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl"></div>
+      {/* Enhanced background for better visibility */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -124,7 +124,7 @@ const Metrics = () => {
           <h2 className="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
             Proven Impact
           </h2>
-          <p className="text-xl text-muted max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Our track record speaks for itself. Here's how we've helped organizations 
             transform their digital presence and achieve measurable results.
           </p>
@@ -158,13 +158,13 @@ const Metrics = () => {
           className="text-center mt-16"
         >
           <div className="max-w-4xl mx-auto">
-            <p className="text-muted text-lg leading-relaxed">
+            <p className="text-gray-300 text-lg leading-relaxed">
               Every project is an opportunity to push boundaries and deliver exceptional results. 
               Our multidisciplinary team combines technical expertise with creative vision to 
               build solutions that don't just meet requirements—they exceed expectations.
             </p>
             
-            <div className="mt-8 flex flex-wrap justify-center gap-8 text-sm text-muted/80">
+            <div className="mt-8 flex flex-wrap justify-center gap-8 text-sm text-gray-400">
               <div className="flex items-center">
                 <span className="w-2 h-2 bg-accent rounded-full mr-2"></span>
                 ISO 27001 Certified

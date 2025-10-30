@@ -81,10 +81,12 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-primary-900 border-t border-white/10 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary-900 via-primary-900/95 to-primary-900/90"></div>
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-32 bg-primary-600/10 blur-3xl"></div>
+    <footer className="bg-gray-900 border-t-4 border-cyan-400 relative overflow-hidden z-50">
+      {/* Maximum opacity background for complete visibility */}
+      <div className="absolute inset-0 bg-gray-900"></div>
+      <div className="absolute inset-0 bg-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-800 via-gray-900 to-gray-800"></div>
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-400"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -97,10 +99,10 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl lg:text-4xl font-display font-bold text-white mb-4">
+              <h2 className="text-3xl lg:text-4xl font-display font-bold text-white mb-4 drop-shadow-lg">
                 Stay Updated
               </h2>
-              <p className="text-xl text-muted mb-8 max-w-2xl mx-auto">
+              <p className="text-xl text-white mb-8 max-w-2xl mx-auto font-medium drop-shadow-md">
                 Get the latest insights on digital transformation, technology trends, 
                 and exclusive resources delivered to your inbox.
               </p>
@@ -117,7 +119,7 @@ const Footer = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 bg-white border-2 border-gray-600 rounded-xl text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all font-medium"
                       required
                       disabled={newsletterStatus === 'loading'}
                     />
@@ -127,7 +129,7 @@ const Footer = () => {
                     whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                     whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
                     disabled={newsletterStatus === 'loading'}
-                    className="px-6 py-3 bg-accent hover:bg-accent/90 text-primary-900 font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary-900 disabled:opacity-50"
+                    className="px-6 py-3 bg-cyan-400 hover:bg-cyan-300 text-black font-bold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 border-2 border-cyan-300"
                     aria-label="Subscribe to newsletter"
                   >
                     {newsletterStatus === 'loading' ? (
@@ -176,30 +178,30 @@ const Footer = () => {
               >
                 {/* Logo */}
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-accent rounded-xl flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">TN</span>
+                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-cyan-300 rounded-xl flex items-center justify-center border-2 border-cyan-300 shadow-xl">
+                    <span className="text-black font-bold text-xl drop-shadow-md">TN</span>
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-xl text-white">
+                    <h3 className="font-display font-bold text-xl text-white drop-shadow-md">
                       {company.name}
                     </h3>
-                    <p className="text-muted text-sm">
+                    <p className="text-white text-sm font-bold drop-shadow-sm">
                       {company.tagline}
                     </p>
                   </div>
                 </div>
                 
-                <p className="text-muted leading-relaxed mb-6">
+                <p className="text-white leading-relaxed mb-6 font-medium drop-shadow-sm">
                   {company.description}
                 </p>
                 
                 {/* Contact Info */}
-                <div className="space-y-2 text-sm text-muted mb-6">
+                <div className="space-y-2 text-sm text-white mb-6">
                   <p>{company.address}</p>
                   <p>
                     <a 
                       href={`mailto:${company.email}`} 
-                      className="hover:text-accent transition-colors"
+                      className="hover:text-cyan-300 transition-colors font-bold text-white"
                     >
                       {company.email}
                     </a>
@@ -207,7 +209,7 @@ const Footer = () => {
                   <p>
                     <a 
                       href={`tel:${company.phone}`} 
-                      className="hover:text-accent transition-colors"
+                      className="hover:text-cyan-300 transition-colors font-bold text-white"
                     >
                       {company.phone}
                     </a>
@@ -223,7 +225,7 @@ const Footer = () => {
                         key={social.name}
                         href={social.url}
                         whileHover={prefersReducedMotion ? {} : { scale: 1.2, y: -2 }}
-                        className="w-10 h-10 bg-white/10 hover:bg-accent hover:text-primary-900 text-muted rounded-lg flex items-center justify-center transition-all duration-300 focus-visible"
+                        className="w-10 h-10 bg-white/90 hover:bg-cyan-400 hover:text-black text-gray-800 rounded-lg flex items-center justify-center transition-all duration-300 focus-visible border-2 border-cyan-400"
                         aria-label={`Follow us on ${social.name}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -249,7 +251,7 @@ const Footer = () => {
                   }}
                   viewport={{ once: true }}
                 >
-                  <h4 className="font-semibold text-white mb-4 text-lg">
+                  <h4 className="font-bold text-white mb-4 text-lg drop-shadow-md">
                     {section.title}
                   </h4>
                   <ul className="space-y-3">
@@ -257,7 +259,7 @@ const Footer = () => {
                       <li key={link.name}>
                         <button
                           onClick={() => scrollToElement(link.href.substring(1), 100)}
-                          className="text-muted hover:text-accent transition-colors text-sm focus-visible p-1 -m-1 rounded"
+                          className="text-white hover:text-cyan-300 transition-colors text-sm focus-visible p-1 -m-1 rounded font-bold"
                         >
                           {link.name}
                         </button>
@@ -271,11 +273,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-8 border-t border-white/10">
+        <div className="py-8 border-t-4 border-cyan-400/50 bg-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             
             <div className="text-center md:text-left">
-              <p className="text-muted text-sm flex items-center justify-center md:justify-start">
+              <p className="text-white text-sm flex items-center justify-center md:justify-start font-bold">
                 © {currentYear} {company.name}. Made with 
                 <FaHeart className="text-red-400 mx-1" /> 
                 by our amazing team.
@@ -287,7 +289,7 @@ const Footer = () => {
                 <button
                   key={link.name}
                   onClick={() => scrollToElement(link.href.substring(1), 100)}
-                  className="text-muted hover:text-accent transition-colors text-sm focus-visible p-1 -m-1 rounded"
+                  className="text-white hover:text-cyan-300 transition-colors text-sm focus-visible p-1 -m-1 rounded font-bold"
                 >
                   {link.name}
                 </button>

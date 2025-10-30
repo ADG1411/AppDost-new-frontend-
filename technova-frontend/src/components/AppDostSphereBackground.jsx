@@ -40,19 +40,25 @@ const fragmentShader = `
     float distance = length(vWorldPosition - cameraPosition);
     float depthFactor = 1.0 - clamp(distance / 15.0, 0.0, 1.0);
     
-    // Create animated gradient with three colors
-    float gradientPos = (sin(time * 0.3 + vPosition.y * 1.5) + 1.0) * 0.5;
-    vec3 colorA = mix(color1, color2, smoothstep(0.0, 0.5, gradientPos));
+    // Enhanced animated gradient with flowing colors
+    float gradientPos = (sin(time * 0.4 + vPosition.y * 1.8) + 1.0) * 0.5;
+    float flowEffect = sin(time * 0.6 + vPosition.x * 3.0 + vPosition.z * 2.0) * 0.3 + 0.7;
+    
+    vec3 colorA = mix(color1, color2, smoothstep(0.0, 0.5, gradientPos * flowEffect));
     vec3 finalColor = mix(colorA, color3, smoothstep(0.5, 1.0, gradientPos));
     
-    // Enhanced glow with multiple frequencies
-    float glow = 0.6 + 0.3 * sin(time * 1.5 + vPosition.x * 2.0) + 
-                0.1 * sin(time * 3.0 + vPosition.z * 4.0);
+    // Dynamic glow with multiple wave patterns
+    float wave1 = sin(time * 1.8 + vPosition.x * 2.5);
+    float wave2 = cos(time * 2.3 + vPosition.y * 3.0);
+    float wave3 = sin(time * 1.2 + vPosition.z * 2.8);
     
-    // Intensity based on connection strength and depth
-    float intensity = vAlpha * glow * (0.7 + 0.3 * depthFactor);
+    float glow = 0.3 + 0.2 * wave1 + 0.15 * wave2 + 0.1 * wave3;
     
-    gl_FragColor = vec4(finalColor * intensity, intensity * 0.9);
+    // Enhanced intensity with flowing energy effect
+    float energyFlow = sin(time * 0.8 + length(vPosition) * 0.5) * 0.2 + 0.8;
+    float intensity = vAlpha * glow * energyFlow * (0.4 + 0.2 * depthFactor);
+    
+    gl_FragColor = vec4(finalColor * intensity, intensity * 0.6);
   }
 `;
 
@@ -78,10 +84,10 @@ const particleFragmentShader = `
     float distance = length(gl_PointCoord - vec2(0.5));
     float alpha = 1.0 - smoothstep(0.0, 0.5, distance);
     
-    // Add pulsing glow
-    alpha *= 0.8 + 0.2 * sin(gl_FragCoord.x * 0.01 + gl_FragCoord.y * 0.01);
+    // Subtle pulsing glow
+    alpha *= 0.5 + 0.15 * sin(gl_FragCoord.x * 0.01 + gl_FragCoord.y * 0.01);
     
-    gl_FragColor = vec4(vColor, alpha * 0.9);
+    gl_FragColor = vec4(vColor, alpha * 0.6);
   }
 `;
 
@@ -151,10 +157,10 @@ function AppDostSphere() {
       const t = (points[i].y + radius) / (radius * 2);
       const angle = Math.atan2(points[i].z, points[i].x) / (Math.PI * 2) + 0.5;
       
-      // Multi-dimensional color variation
-      const r = 0.0 + t * 0.3 + angle * 0.1;
-      const g = 0.7 + t * 0.3 + Math.sin(angle * Math.PI * 2) * 0.1;
-      const b = 0.8 + t * 0.2 + Math.cos(angle * Math.PI * 3) * 0.15;
+      // Dimmed multi-dimensional color variation
+      const r = 0.0 + t * 0.15 + angle * 0.05;
+      const g = 0.3 + t * 0.2 + Math.sin(angle * Math.PI * 2) * 0.08;
+      const b = 0.4 + t * 0.15 + Math.cos(angle * Math.PI * 3) * 0.1;
       
       particleColors.push(r, g, b);
       
@@ -180,9 +186,9 @@ function AppDostSphere() {
       vertexShader,
       fragmentShader,
       uniforms: {
-        color1: { value: new THREE.Color(0x00ccff) }, // Bright cyan
-        color2: { value: new THREE.Color(0x40e0d0) }, // Turquoise
-        color3: { value: new THREE.Color(0x0099cc) }, // Deep blue
+        color1: { value: new THREE.Color(0x003355) }, // Darker cyan
+        color2: { value: new THREE.Color(0x004466) }, // Darker turquoise  
+        color3: { value: new THREE.Color(0x001133) }, // Much deeper blue
         time: { value: 0 },
         cameraPosition: { value: new THREE.Vector3() }
       },
@@ -203,21 +209,86 @@ function AppDostSphere() {
     });
   }, []);
   
-  // Enhanced animation
+  // Optimized 3D animations with smooth performance
   useFrame((state) => {
     const time = state.clock.elapsedTime;
     
-    // Smooth, elegant rotation
+    // Optimized sphere rotation with smooth easing
     if (sphereRef.current) {
-      sphereRef.current.rotation.x = Math.sin(time * 0.08) * 0.1 + time * 0.05;
-      sphereRef.current.rotation.y = time * 0.12;
-      sphereRef.current.rotation.z = Math.cos(time * 0.06) * 0.05;
+      // Smooth primary rotation with reduced calculations
+      const rotationSpeed = 0.1;
+      const breatheSpeed = 0.3;
+      
+      sphereRef.current.rotation.x = Math.sin(time * 0.05) * 0.1 + time * 0.02;
+      sphereRef.current.rotation.y = time * rotationSpeed;
+      sphereRef.current.rotation.z = Math.cos(time * 0.04) * 0.06;
+      
+      // Smooth breathing scale animation with easing
+      const breathe = 1 + Math.sin(time * breatheSpeed) * 0.015;
+      sphereRef.current.scale.setScalar(breathe);
+      
+      // Gentle floating motion
+      sphereRef.current.position.y = Math.sin(time * 0.2) * 0.08;
+      sphereRef.current.position.x = Math.cos(time * 0.15) * 0.04;
     }
     
-    // Update shader uniforms
+    // Ultra-optimized particle animation with smooth interpolation
+    if (particlesRef.current && Math.floor(time * 60) % 3 === 0) { // Update every 3 frames at 60fps
+      const positions = particlesRef.current.geometry.attributes.position.array;
+      const originalPositions = particlePositions;
+      
+      // Use smoother, more efficient calculations
+      const timeScale = time * 0.2;
+      
+      for (let i = 0; i < positions.length; i += 9) { // Update every 3rd particle for performance
+        const index = i / 3;
+        const offset = index * 0.1;
+        
+        // Ultra-smooth floating with bezier-like curves
+        const floatX = Math.sin(timeScale + offset) * 0.012;
+        const floatY = Math.cos(timeScale * 0.8 + offset) * 0.015;
+        const floatZ = Math.sin(timeScale * 1.2 + offset) * 0.01;
+        
+        // Apply smooth interpolation
+        positions[i] = originalPositions[i] + floatX;
+        positions[i + 1] = originalPositions[i + 1] + floatY;
+        positions[i + 2] = originalPositions[i + 2] + floatZ;
+      }
+      particlesRef.current.geometry.attributes.position.needsUpdate = true;
+    }
+    
+    // Update shader uniforms with animation
     if (linesRef.current) {
       linesRef.current.material.uniforms.time.value = time;
       linesRef.current.material.uniforms.cameraPosition.value.copy(state.camera.position);
+      
+      // Dynamic line animations with organic pulsing
+      const positions = linesRef.current.geometry.attributes.position.array;
+      const alphas = linesRef.current.geometry.attributes.alpha.array;
+      
+      for (let i = 0; i < alphas.length; i++) {
+        const lineIndex = Math.floor(i / 2);
+        
+        // Multiple frequency pulsing for organic feel
+        const pulseFreq1 = 0.5 + (lineIndex % 10) * 0.1;
+        const pulseFreq2 = 0.8 + (lineIndex % 7) * 0.15;
+        const pulse = Math.sin(time * pulseFreq1 + lineIndex * 0.5) * 0.25 + 
+                     Math.cos(time * pulseFreq2 + lineIndex * 0.3) * 0.15 + 0.6;
+        
+        alphas[i] = Math.max(0.1, pulse);
+        
+        // Subtle position morphing for living network effect
+        if (i % 6 === 0) { // Only animate every 6th vertex for performance
+          const posIndex = i * 3;
+          const morphAmount = Math.sin(time * 0.3 + lineIndex * 0.1) * 0.02;
+          positions[posIndex] += morphAmount;
+          positions[posIndex + 1] += Math.cos(time * 0.25 + lineIndex * 0.12) * 0.015;
+          positions[posIndex + 2] += Math.sin(time * 0.35 + lineIndex * 0.08) * 0.018;
+        }
+      }
+      
+      linesRef.current.geometry.attributes.alpha.needsUpdate = true;
+      linesRef.current.geometry.attributes.position.needsUpdate = true;
     }
   });
   
@@ -276,6 +347,33 @@ function AppDostSphere() {
   );
 }
 
+function CameraAnimation() {
+  useFrame((state) => {
+    const time = state.clock.elapsedTime;
+    const camera = state.camera;
+    
+    // Smooth, subtle camera movement for immersive experience
+    const radius = 10;
+    const elevation = Math.sin(time * 0.03) * 0.3; // Reduced frequency for smoothness
+    const azimuth = time * 0.015; // Slower rotation for elegance
+    
+    // Gentle circular camera movement
+    const radiusVariation = 1 + Math.sin(time * 0.02) * 0.05; // Reduced variation
+    camera.position.x = Math.cos(azimuth) * radius * radiusVariation;
+    camera.position.y = elevation + Math.cos(time * 0.025) * 0.2;
+    camera.position.z = Math.sin(azimuth) * radius * radiusVariation;
+    
+    // Smooth look-at with minimal offset
+    camera.lookAt(
+      Math.sin(time * 0.05) * 0.1,
+      Math.cos(time * 0.04) * 0.05,
+      0
+    );
+  });
+  
+  return null;
+}
+
 function FloatingParticles() {
   const particlesRef = useRef();
   
@@ -297,11 +395,11 @@ function FloatingParticles() {
       positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
       positions[i * 3 + 2] = radius * Math.cos(phi);
       
-      // Enhanced color variety with subtle gradients
+      // Dimmed color variety with darker gradients
       const t = Math.random();
-      colors[i * 3] = 0.0 + t * 0.4;     // R: 0.0 to 0.4
-      colors[i * 3 + 1] = 0.6 + t * 0.4; // G: 0.6 to 1.0  
-      colors[i * 3 + 2] = 0.7 + t * 0.3; // B: 0.7 to 1.0
+      colors[i * 3] = 0.0 + t * 0.2;     // R: 0.0 to 0.2
+      colors[i * 3 + 1] = 0.2 + t * 0.25; // G: 0.2 to 0.45  
+      colors[i * 3 + 2] = 0.3 + t * 0.2; // B: 0.3 to 0.5
       
       sizes[i] = 0.8 + Math.random() * 2.2;
     }
@@ -312,10 +410,46 @@ function FloatingParticles() {
   useFrame((state) => {
     const time = state.clock.elapsedTime;
     if (particlesRef.current) {
-      // Multi-layered rotation for depth
-      particlesRef.current.rotation.y = time * 0.015;
-      particlesRef.current.rotation.x = Math.sin(time * 0.01) * 0.1;
-      particlesRef.current.rotation.z = Math.cos(time * 0.008) * 0.05;
+      // Enhanced multi-layered rotation with orbital movement
+      particlesRef.current.rotation.y = time * 0.02 + Math.sin(time * 0.1) * 0.05;
+      particlesRef.current.rotation.x = Math.sin(time * 0.015) * 0.12 + time * 0.008;
+      particlesRef.current.rotation.z = Math.cos(time * 0.012) * 0.08;
+      
+      // Orbital movement around the main sphere
+      const orbitRadius = 0.3;
+      particlesRef.current.position.x = Math.cos(time * 0.1) * orbitRadius;
+      particlesRef.current.position.z = Math.sin(time * 0.1) * orbitRadius;
+      particlesRef.current.position.y = Math.sin(time * 0.08) * 0.2;
+      
+      // Animate individual particle positions for floating effect
+      const positions = particlesRef.current.geometry.attributes.position.array;
+      const colors = particlesRef.current.geometry.attributes.color.array;
+      const sizes = particlesRef.current.geometry.attributes.size.array;
+      
+      for (let i = 0; i < positions.length; i += 3) {
+        const index = i / 3;
+        // Create flowing movement
+        const waveX = Math.sin(time * 0.2 + index * 0.1) * 0.5;
+        const waveY = Math.cos(time * 0.15 + index * 0.2) * 0.3;
+        const waveZ = Math.sin(time * 0.18 + index * 0.15) * 0.4;
+        
+        positions[i] += waveX * 0.01;
+        positions[i + 1] += waveY * 0.01;
+        positions[i + 2] += waveZ * 0.01;
+        
+        // Animate particle sizes for pulsing effect
+        const sizePulse = 1 + Math.sin(time * 1.5 + index * 0.5) * 0.3;
+        sizes[index] = (0.8 + Math.random() * 2.2) * sizePulse;
+        
+        // Subtle color animation
+        const colorShift = Math.sin(time * 0.5 + index * 0.3) * 0.1;
+        colors[i + 1] += colorShift * 0.1; // Green channel animation
+        colors[i + 2] += colorShift * 0.08; // Blue channel animation
+      }
+      
+      particlesRef.current.geometry.attributes.position.needsUpdate = true;
+      particlesRef.current.geometry.attributes.size.needsUpdate = true;
+      particlesRef.current.geometry.attributes.color.needsUpdate = true;
     }
   });
   
@@ -355,19 +489,19 @@ function FloatingParticles() {
 export default function AppDostSphereBackground() {
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden">
-      {/* Enhanced gradient background with more depth */}
+      {/* Darker gradient background for better contrast */}
       <div 
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(circle at 30% 20%, rgba(0, 120, 150, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 70% 80%, rgba(0, 180, 200, 0.2) 0%, transparent 50%),
-            linear-gradient(135deg, #0a1428 0%, #1a4a52 30%, #0d2b35 70%, #051219 100%)
+            radial-gradient(circle at 30% 20%, rgba(0, 60, 80, 0.15) 0%, transparent 60%),
+            radial-gradient(circle at 70% 80%, rgba(0, 90, 120, 0.1) 0%, transparent 70%),
+            linear-gradient(135deg, #000000 0%, #0a0a0a 20%, #0f1419 40%, #1a252f 60%, #000510 80%, #000000 100%)
           `
         }}
       />
       
-      {/* 3D Canvas */}
+      {/* 3D Canvas with animated camera */}
       <Canvas
         camera={{ 
           position: [0, 0, 10], 
@@ -381,32 +515,32 @@ export default function AppDostSphereBackground() {
           height: '100%'
         }}
       >
-        {/* Enhanced lighting setup */}
-        <ambientLight intensity={0.4} color="#20b2aa" />
+        {/* Dimmed lighting setup for less brightness */}
+        <ambientLight intensity={0.2} color="#102030" />
         
-        {/* Primary key light */}
+        {/* Primary key light - much dimmer */}
         <pointLight 
           position={[12, 8, 15]} 
-          intensity={1.2} 
-          color="#00e6ff" 
+          intensity={0.6} 
+          color="#004466" 
           distance={30}
           decay={2}
         />
         
-        {/* Secondary fill light */}
+        {/* Secondary fill light - subtle */}
         <pointLight 
           position={[-8, -6, 10]} 
-          intensity={0.6} 
-          color="#40e0d0" 
+          intensity={0.3} 
+          color="#003344" 
           distance={25}
           decay={2}
         />
         
-        {/* Rim light for depth */}
+        {/* Rim light for depth - very subtle */}
         <pointLight 
           position={[0, 0, -10]} 
-          intensity={0.8} 
-          color="#0099cc" 
+          intensity={0.4} 
+          color="#002233" 
           distance={20}
           decay={1.5}
         />
@@ -417,28 +551,34 @@ export default function AppDostSphereBackground() {
         {/* Floating background particles */}
         <FloatingParticles />
         
+        {/* Camera animation for immersive movement */}
+        <CameraAnimation />
+        
         {/* Enhanced fog for atmospheric depth */}
-        <fog attach="fog" args={['#0d2b35', 12, 30]} />
+        <fog attach="fog" args={['#000510', 8, 25]} />
       </Canvas>
       
-      {/* Enhanced glow overlay with multiple layers */}
+      {/* Subtle glow overlay with darker tones */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(circle at center, transparent 0%, rgba(0,230,255,0.08) 40%, rgba(64,224,208,0.12) 80%, transparent 100%),
-            radial-gradient(circle at 60% 40%, rgba(0,200,230,0.06) 0%, transparent 60%),
-            radial-gradient(circle at 40% 60%, rgba(100,240,220,0.04) 0%, transparent 70%)
+            radial-gradient(circle at center, transparent 0%, rgba(0,60,100,0.04) 50%, rgba(0,40,80,0.06) 80%, transparent 100%),
+            radial-gradient(circle at 60% 40%, rgba(0,50,80,0.03) 0%, transparent 70%),
+            radial-gradient(circle at 40% 60%, rgba(20,60,90,0.02) 0%, transparent 80%)
           `,
           mixBlendMode: 'screen'
         }}
       />
       
-      {/* Subtle vignette for focus */}
+      {/* Strong dark vignette for focus and contrast */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at center, transparent 0%, transparent 60%, rgba(5,18,25,0.3) 100%)',
+          background: `
+            radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.6) 100%),
+            linear-gradient(135deg, rgba(0,0,0,0.2) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.2) 100%)
+          `,
           mixBlendMode: 'multiply'
         }}
       />

@@ -50,17 +50,37 @@ export const debounce = (func, wait) => {
 }
 
 /**
- * Smooth scroll to element
+ * Enhanced smooth scroll to element with easing
  */
-export const scrollToElement = (elementId, offset = 0) => {
+export const scrollToElement = (elementId, offset = 0, duration = 1000) => {
   const element = document.getElementById(elementId)
-  if (element) {
-    const elementPosition = element.offsetTop - offset
-    window.scrollTo({
-      top: elementPosition,
-      behavior: 'smooth'
-    })
+  if (!element) return
+
+  const startPosition = window.pageYOffset
+  const targetPosition = element.offsetTop - offset
+  const distance = targetPosition - startPosition
+  let startTime = null
+
+  const easeInOutCubic = (t) => {
+    return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
   }
+
+  const animation = (currentTime) => {
+    if (startTime === null) startTime = currentTime
+    const timeElapsed = currentTime - startTime
+    const progress = Math.min(timeElapsed / duration, 1)
+
+    const easedProgress = easeInOutCubic(progress)
+    const currentPosition = startPosition + (distance * easedProgress)
+
+    window.scrollTo(0, currentPosition)
+
+    if (progress < 1) {
+      requestAnimationFrame(animation)
+    }
+  }
+
+  requestAnimationFrame(animation)
 }
 
 /**

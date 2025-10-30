@@ -9,6 +9,7 @@ import { loadFull } from 'tsparticles'
 import { FaArrowDown, FaPlay } from 'react-icons/fa'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { scrollToElement } from '../utils/helpers'
+import AppDostSphereBackground from './AppDostSphereBackground'
 
 const Hero = () => {
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -108,13 +109,13 @@ const Hero = () => {
   }
 
   const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.8,
-        ease: "easeOut"
+        duration: prefersReducedMotion ? 0 : 1.2,
+        ease: [0.25, 0.46, 0.45, 0.94] // Custom cubic-bezier for smooth easing
       }
     }
   }
@@ -132,29 +133,23 @@ const Hero = () => {
       id="hero" 
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Particle Background */}
+      {/* Enhanced 3D Network Background */}
       {!prefersReducedMotion && (
         <div className="absolute inset-0 z-0">
-          <Particles
-            id="hero-particles"
-            init={particlesInit}
-            loaded={particlesLoaded}
-            options={particlesOptions}
-            className="w-full h-full"
-          />
+          <AppDostSphereBackground />
         </div>
       )}
 
       {/* Static background for reduced motion */}
       {prefersReducedMotion && (
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-900/90 to-primary-600/20"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-600/20 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-gray-800"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
         </div>
       )}
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center flex items-center justify-center min-h-screen">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center flex items-center justify-center min-h-screen gpu-accelerated">
         <motion.div
           initial={prefersReducedMotion ? false : "hidden"}
           animate="visible"
@@ -191,9 +186,16 @@ const Hero = () => {
               onClick={scrollToContact}
               whileHover={prefersReducedMotion ? {} : { 
                 scale: 1.05,
-                boxShadow: "0 20px 50px rgba(14,165,164,0.3)"
+                boxShadow: "0 25px 60px rgba(0, 229, 255, 0.4)",
+                y: -2
               }}
-              whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+              whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 400, 
+                damping: 25,
+                mass: 0.8
+              }}
               className="btn-primary group relative overflow-hidden px-8 lg:px-10 py-4 lg:py-5 text-base lg:text-lg font-semibold"
               aria-label="Get free consultation"
             >
@@ -211,8 +213,18 @@ const Hero = () => {
 
             <motion.button
               onClick={scrollToServices}
-              whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-              whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+              whileHover={prefersReducedMotion ? {} : { 
+                scale: 1.05, 
+                y: -2,
+                boxShadow: "0 15px 40px rgba(0, 229, 255, 0.2)"
+              }}
+              whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 400, 
+                damping: 25,
+                mass: 0.8
+              }}
               className="btn-secondary group flex items-center px-8 lg:px-10 py-4 lg:py-5 text-base lg:text-lg font-semibold"
               aria-label="Explore our services"
             >

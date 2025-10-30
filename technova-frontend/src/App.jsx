@@ -8,6 +8,7 @@ import Hero from './components/Hero'
 import Metrics from './components/Metrics'
 import ServicesGrid from './components/ServicesGrid'
 import Footer from './components/Footer'
+import AppDostSphereBackground from './components/AppDostSphereBackground'
 import './index.css'
 
 function App() {
@@ -74,12 +75,15 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-primary-900 text-white">
+    <div className="min-h-screen bg-black text-white relative">
+      {/* Global 3D Network Background */}
+      <AppDostSphereBackground />
+      
       {/* Header with navigation */}
       <Header />
       
       {/* Main content */}
-      <main id="main-content" role="main">
+      <main id="main-content" role="main" className="relative z-10">
         {/* Hero section */}
         <Hero />
         
@@ -90,19 +94,20 @@ function App() {
         <ServicesGrid />
         
         {/* Projects section placeholder */}
-        <section id="projects" className="py-20 lg:py-32">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section id="projects" className="py-20 lg:py-32 relative">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <h2 className="text-3xl lg:text-5xl font-display font-bold text-white mb-6">
               Featured <span className="text-gradient">Projects</span>
             </h2>
-            <p className="text-xl text-muted max-w-3xl mx-auto mb-12">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
               Explore some of our most impactful work and see how we've helped 
               organizations transform their digital presence.
             </p>
-            <div className="glass rounded-3xl p-12">
-              <p className="text-muted text-lg">
+            <div className="glass rounded-3xl p-12 border border-white/10">
+              <p className="text-gray-300 text-lg">
                 Project showcase coming soon! In the meantime, 
-                <a href="#contact" className="text-accent hover:underline ml-1">
+                <a href="#contact" className="text-cyan-400 hover:underline ml-1">
                   contact us
                 </a> to discuss your project.
               </p>
@@ -111,20 +116,21 @@ function App() {
         </section>
 
         {/* Industries section placeholder */}
-        <section id="industries" className="py-20 lg:py-32 bg-primary-900/50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section id="industries" className="py-20 lg:py-32 relative">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <h2 className="text-3xl lg:text-5xl font-display font-bold text-white mb-6">
               Industries We <span className="text-gradient">Serve</span>
             </h2>
-            <p className="text-xl text-muted max-w-3xl mx-auto mb-12">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
               We bring domain expertise across multiple industries, delivering 
               solutions that understand your unique challenges and requirements.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {['Healthcare', 'Finance', 'Education', 'Retail', 'Energy', 'Manufacturing'].map((industry) => (
-                <div key={industry} className="card text-center">
+                <div key={industry} className="card text-center bg-black/30 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 transition-colors">
                   <h3 className="text-xl font-bold text-white mb-2">{industry}</h3>
-                  <p className="text-muted">Specialized solutions for {industry.toLowerCase()} sector</p>
+                  <p className="text-gray-300">Specialized solutions for {industry.toLowerCase()} sector</p>
                 </div>
               ))}
             </div>
@@ -132,27 +138,28 @@ function App() {
         </section>
 
         {/* About section placeholder */}
-        <section id="about" className="py-20 lg:py-32">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section id="about" className="py-20 lg:py-32 relative">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <h2 className="text-3xl lg:text-5xl font-display font-bold text-white mb-6">
               About <span className="text-gradient">TechNova</span>
             </h2>
-            <p className="text-xl text-muted max-w-3xl mx-auto mb-12">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
               Founded in 2020, TechNova Digital has been at the forefront of digital innovation, 
               helping organizations transform their technology landscape and achieve breakthrough results.
             </p>
-            <div className="glass rounded-3xl p-12 max-w-4xl mx-auto">
+            <div className="glass rounded-3xl p-12 max-w-4xl mx-auto bg-black/30 backdrop-blur-md border border-white/10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-4">Our Mission</h3>
-                  <p className="text-muted">
+                  <p className="text-gray-300">
                     To democratize access to cutting-edge technology and empower organizations 
                     to achieve their digital transformation goals through innovative solutions.
                   </p>
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white mb-4">Our Vision</h3>
-                  <p className="text-muted">
+                  <p className="text-gray-300">
                     To be the world's most trusted partner for digital transformation, 
                     setting new standards for technical excellence and client success.
                   </p>
@@ -163,20 +170,21 @@ function App() {
         </section>
 
         {/* Contact section placeholder */}
-        <section id="contact" className="py-20 lg:py-32 bg-primary-900/50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="contact" className="py-20 lg:py-32 relative">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-5xl font-display font-bold text-white mb-6">
                 Let's Build Something <span className="text-gradient">Amazing</span>
               </h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Ready to transform your digital presence? Get in touch with our team 
                 to discuss your project and receive a detailed proposal.
               </p>
             </div>
             
             <div className="max-w-2xl mx-auto">
-              <div className="glass rounded-3xl p-8 lg:p-12">
+              <div className="glass rounded-3xl p-8 lg:p-12 bg-black/30 backdrop-blur-md border border-white/10">
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -186,7 +194,7 @@ function App() {
                       <input
                         type="text"
                         id="name"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                        className="w-full px-4 py-3 bg-black/20 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent backdrop-blur-sm"
                         placeholder="John Doe"
                       />
                     </div>
@@ -197,7 +205,7 @@ function App() {
                       <input
                         type="email"
                         id="email"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                        className="w-full px-4 py-3 bg-black/20 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent backdrop-blur-sm"
                         placeholder="john@company.com"
                       />
                     </div>

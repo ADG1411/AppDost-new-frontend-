@@ -30,12 +30,15 @@ const ServiceCard = ({ service, index, isVisible }) => {
 
   const hoverVariants = {
     hover: {
-      y: prefersReducedMotion ? 0 : -10,
-      scale: prefersReducedMotion ? 1 : 1.02,
-      rotateY: prefersReducedMotion ? 0 : 2,
+      y: prefersReducedMotion ? 0 : -8,
+      scale: prefersReducedMotion ? 1 : 1.03,
+      rotateY: prefersReducedMotion ? 0 : 1,
+      boxShadow: prefersReducedMotion ? "none" : "0 25px 50px rgba(0, 229, 255, 0.15)",
       transition: {
-        duration: 0.3,
-        ease: "easeOut"
+        type: "spring",
+        stiffness: 300,
+        damping: 20,
+        mass: 0.8
       }
     }
   }
@@ -46,7 +49,7 @@ const ServiceCard = ({ service, index, isVisible }) => {
       animate={isVisible ? "visible" : "hidden"}
       whileHover={prefersReducedMotion ? {} : "hover"}
       variants={prefersReducedMotion ? {} : { ...cardVariants, ...hoverVariants }}
-      className="card group relative overflow-hidden h-full flex flex-col cursor-pointer"
+      className="card group relative overflow-hidden h-full flex flex-col cursor-pointer bg-black/30 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 ultra-smooth gpu-accelerated smooth-hover"
       role="article"
       tabIndex={0}
     >
@@ -83,7 +86,7 @@ const ServiceCard = ({ service, index, isVisible }) => {
       </div>
 
       {/* Description */}
-      <p className="text-muted mb-6 leading-relaxed flex-grow">
+      <p className="text-gray-300 mb-6 leading-relaxed flex-grow">
         {service.description}
       </p>
 
@@ -92,8 +95,8 @@ const ServiceCard = ({ service, index, isVisible }) => {
         <h4 className="text-white font-semibold mb-3 text-sm">Key Benefits:</h4>
         <ul className="space-y-2" role="list">
           {service.bullets.map((bullet, bulletIndex) => (
-            <li key={bulletIndex} className="flex items-start text-sm text-muted">
-              <span className="text-accent mr-2 mt-1">•</span>
+            <li key={bulletIndex} className="flex items-start text-sm text-gray-300">
+              <span className="text-cyan-400 mr-2 mt-1">•</span>
               <span>{bullet}</span>
             </li>
           ))}

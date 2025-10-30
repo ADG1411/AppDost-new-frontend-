@@ -31,10 +31,10 @@ const ServicesGrid = () => {
       ref={elementRef}
       className="py-20 lg:py-32 relative overflow-hidden"
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary-900 via-primary-900/98 to-primary-900"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+      {/* Enhanced background for visibility */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-md"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400/8 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -47,7 +47,7 @@ const ServicesGrid = () => {
           <h2 className="text-3xl lg:text-5xl font-display font-bold text-white mb-6">
             Our <span className="text-gradient">Services</span>
           </h2>
-          <p className="text-xl text-muted max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
             From AI-powered solutions to cutting-edge web applications, we deliver 
             comprehensive digital services that transform businesses and drive growth.
           </p>
