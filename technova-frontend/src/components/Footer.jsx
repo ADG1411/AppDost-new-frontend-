@@ -8,6 +8,7 @@ import { FaPaperPlane, FaHeart } from 'react-icons/fa'
 import { company, socialLinks } from '../data/content'
 import { validateEmail, scrollToElement } from '../utils/helpers'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import AppDostLogo from './AppDostLogo'
 
 const Footer = () => {
   const [email, setEmail] = useState('')
@@ -177,18 +178,8 @@ const Footer = () => {
                 viewport={{ once: true }}
               >
                 {/* Logo */}
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-cyan-300 rounded-xl flex items-center justify-center border-2 border-cyan-300 shadow-xl">
-                    <span className="text-black font-bold text-xl drop-shadow-md">TN</span>
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-xl text-white drop-shadow-md">
-                      {company.name}
-                    </h3>
-                    <p className="text-white text-sm font-bold drop-shadow-sm">
-                      {company.tagline}
-                    </p>
-                  </div>
+                <div className="mb-6">
+                  <AppDostLogo size="md" showTagline={true} textColor="text-white" />
                 </div>
                 
                 <p className="text-white leading-relaxed mb-6 font-medium drop-shadow-sm">

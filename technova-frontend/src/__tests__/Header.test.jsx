@@ -26,7 +26,7 @@ describe('Header', () => {
     render(<Header />)
     
     // Check if main navigation items are present
-    expect(screen.getByText('TechNova Digital')).toBeInTheDocument()
+    expect(screen.getByText('AppDost')).toBeInTheDocument()
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('Services')).toBeInTheDocument()
     expect(screen.getByText('Projects')).toBeInTheDocument()

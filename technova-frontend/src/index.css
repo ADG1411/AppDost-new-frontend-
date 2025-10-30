@@ -280,14 +280,14 @@
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(to right, #0ea5a4, #7CFFB2);
+    background: linear-gradient(to right, #3b82f6, #06b6d4, #0ea5e9);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
   }
   
   .text-gradient-reverse {
-    background: linear-gradient(to right, #7CFFB2, #0ea5a4);
+    background: linear-gradient(to right, #06b6d4, #3b82f6);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;

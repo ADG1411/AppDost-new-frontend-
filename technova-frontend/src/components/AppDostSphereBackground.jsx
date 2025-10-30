@@ -47,18 +47,18 @@ const fragmentShader = `
     vec3 colorA = mix(color1, color2, smoothstep(0.0, 0.5, gradientPos * flowEffect));
     vec3 finalColor = mix(colorA, color3, smoothstep(0.5, 1.0, gradientPos));
     
-    // Dynamic glow with multiple wave patterns
+    // Dynamic glow with multiple wave patterns - ULTRA bright
     float wave1 = sin(time * 1.8 + vPosition.x * 2.5);
     float wave2 = cos(time * 2.3 + vPosition.y * 3.0);
     float wave3 = sin(time * 1.2 + vPosition.z * 2.8);
     
-    float glow = 0.3 + 0.2 * wave1 + 0.15 * wave2 + 0.1 * wave3;
+    float glow = 1.2 + 0.5 * wave1 + 0.4 * wave2 + 0.3 * wave3;
     
-    // Enhanced intensity with flowing energy effect
-    float energyFlow = sin(time * 0.8 + length(vPosition) * 0.5) * 0.2 + 0.8;
-    float intensity = vAlpha * glow * energyFlow * (0.4 + 0.2 * depthFactor);
+    // Enhanced intensity with flowing energy effect - MAXIMUM visibility
+    float energyFlow = sin(time * 0.8 + length(vPosition) * 0.5) * 0.4 + 1.5;
+    float intensity = vAlpha * glow * energyFlow * (1.2 + 0.8 * depthFactor);
     
-    gl_FragColor = vec4(finalColor * intensity, intensity * 0.6);
+    gl_FragColor = vec4(finalColor * intensity * 2.0, intensity * 1.5);
   }
 `;
 
@@ -84,10 +84,10 @@ const particleFragmentShader = `
     float distance = length(gl_PointCoord - vec2(0.5));
     float alpha = 1.0 - smoothstep(0.0, 0.5, distance);
     
-    // Subtle pulsing glow
-    alpha *= 0.5 + 0.15 * sin(gl_FragCoord.x * 0.01 + gl_FragCoord.y * 0.01);
+    // ULTRA bright pulsing glow - maximum visibility
+    alpha *= 1.5 + 0.5 * sin(gl_FragCoord.x * 0.01 + gl_FragCoord.y * 0.01);
     
-    gl_FragColor = vec4(vColor, alpha * 0.6);
+    gl_FragColor = vec4(vColor * 2.0, alpha * 1.8);
   }
 `;
 
@@ -180,21 +180,22 @@ function AppDostSphere() {
     };
   }, []);
   
-  // Create enhanced line materials
+  // Create enhanced line materials with ULTRA bright colors
   const lineMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       vertexShader,
       fragmentShader,
       uniforms: {
-        color1: { value: new THREE.Color(0x003355) }, // Darker cyan
-        color2: { value: new THREE.Color(0x004466) }, // Darker turquoise  
-        color3: { value: new THREE.Color(0x001133) }, // Much deeper blue
+        color1: { value: new THREE.Color(0x66FFFF) }, // Ultra bright cyan
+        color2: { value: new THREE.Color(0xAAFFCC) }, // Ultra bright neon green  
+        color3: { value: new THREE.Color(0x44DDDD) }, // Ultra bright teal
         time: { value: 0 },
         cameraPosition: { value: new THREE.Vector3() }
       },
       transparent: true,
       blending: THREE.AdditiveBlending,
-      depthWrite: false
+      depthWrite: false,
+      opacity: 1.0
     });
   }, []);
   
@@ -488,14 +489,14 @@ function FloatingParticles() {
 
 export default function AppDostSphereBackground() {
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden">
-      {/* Darker gradient background for better contrast */}
+    <div className="w-full h-full overflow-hidden">
+      {/* Enhanced gradient background with better visibility */}
       <div 
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(circle at 30% 20%, rgba(0, 60, 80, 0.15) 0%, transparent 60%),
-            radial-gradient(circle at 70% 80%, rgba(0, 90, 120, 0.1) 0%, transparent 70%),
+            radial-gradient(circle at 30% 20%, rgba(0, 165, 164, 0.15) 0%, transparent 60%),
+            radial-gradient(circle at 70% 80%, rgba(124, 255, 178, 0.1) 0%, transparent 70%),
             linear-gradient(135deg, #000000 0%, #0a0a0a 20%, #0f1419 40%, #1a252f 60%, #000510 80%, #000000 100%)
           `
         }}
@@ -504,8 +505,8 @@ export default function AppDostSphereBackground() {
       {/* 3D Canvas with animated camera */}
       <Canvas
         camera={{ 
-          position: [0, 0, 10], 
-          fov: 60,
+          position: [0, 0, 6], 
+          fov: 75,
           near: 0.1,
           far: 100
         }}
@@ -515,34 +516,34 @@ export default function AppDostSphereBackground() {
           height: '100%'
         }}
       >
-        {/* Dimmed lighting setup for less brightness */}
-        <ambientLight intensity={0.2} color="#102030" />
+        {/* ULTRA bright lighting for maximum visibility */}
+        <ambientLight intensity={2.0} color="#6099CC" />
         
-        {/* Primary key light - much dimmer */}
+        {/* Primary key light - ULTRA bright */}
         <pointLight 
           position={[12, 8, 15]} 
-          intensity={0.6} 
-          color="#004466" 
-          distance={30}
-          decay={2}
+          intensity={3.0} 
+          color="#0099DD" 
+          distance={50}
+          decay={0.5}
         />
         
-        {/* Secondary fill light - subtle */}
+        {/* Secondary fill light - bright */}
         <pointLight 
           position={[-8, -6, 10]} 
-          intensity={0.3} 
-          color="#003344" 
-          distance={25}
-          decay={2}
+          intensity={2.0} 
+          color="#00AAEE" 
+          distance={45}
+          decay={0.7}
         />
         
         {/* Rim light for depth - very subtle */}
         <pointLight 
           position={[0, 0, -10]} 
-          intensity={0.4} 
-          color="#002233" 
-          distance={20}
-          decay={1.5}
+          intensity={0.8} 
+          color="#004455" 
+          distance={25}
+          decay={1.2}
         />
         
         {/* Main sphere network */}
@@ -554,34 +555,23 @@ export default function AppDostSphereBackground() {
         {/* Camera animation for immersive movement */}
         <CameraAnimation />
         
-        {/* Enhanced fog for atmospheric depth */}
-        <fog attach="fog" args={['#000510', 8, 25]} />
+        {/* No fog for maximum visibility */}
       </Canvas>
       
-      {/* Subtle glow overlay with darker tones */}
+      {/* Enhanced glow overlay with better visibility */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(circle at center, transparent 0%, rgba(0,60,100,0.04) 50%, rgba(0,40,80,0.06) 80%, transparent 100%),
-            radial-gradient(circle at 60% 40%, rgba(0,50,80,0.03) 0%, transparent 70%),
-            radial-gradient(circle at 40% 60%, rgba(20,60,90,0.02) 0%, transparent 80%)
+            radial-gradient(circle at center, transparent 0%, rgba(0,165,164,0.08) 40%, rgba(124,255,178,0.06) 70%, transparent 100%),
+            radial-gradient(circle at 60% 40%, rgba(0,165,164,0.05) 0%, transparent 60%),
+            radial-gradient(circle at 40% 60%, rgba(124,255,178,0.04) 0%, transparent 70%)
           `,
           mixBlendMode: 'screen'
         }}
       />
       
-      {/* Strong dark vignette for focus and contrast */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `
-            radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.6) 100%),
-            linear-gradient(135deg, rgba(0,0,0,0.2) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.2) 100%)
-          `,
-          mixBlendMode: 'multiply'
-        }}
-      />
+
     </div>
   );
 }

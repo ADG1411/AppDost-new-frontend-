@@ -17,33 +17,33 @@ function App() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "TechNova Digital",
-      "alternateName": "TechNova",
-      "url": "https://technova.digital",
-      "logo": "https://technova.digital/logo.png",
-      "description": "Architecting the future of digital experiences with product-led engineering and data-driven design.",
-      "foundingDate": "2020",
+      "name": "AppDost",
+      "alternateName": "AppDost IT Solutions",
+      "url": "https://appdost.com",
+      "logo": "https://appdost.com/logo.png",
+      "description": "Transforming businesses with cutting-edge technology solutions, innovative development, and comprehensive IT services.",
+      "foundingDate": "2018",
       "founder": {
         "@type": "Person",
-        "name": "Sarah Johnson"
+        "name": "AppDost Team"
       },
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "123 Innovation Drive",
-        "addressLocality": "Tech Valley",
-        "addressRegion": "CA",
-        "postalCode": "94000",
-        "addressCountry": "US"
+        "streetAddress": "Tech Hub, Sector 62",
+        "addressLocality": "Noida",
+        "addressRegion": "UP",
+        "postalCode": "201309",
+        "addressCountry": "IN"
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+1-555-123-4567",
+        "telephone": "+91-98765-43210",
         "contactType": "customer service"
       },
       "sameAs": [
-        "https://linkedin.com/company/technova-digital",
-        "https://twitter.com/technova_digital",
-        "https://github.com/technova-digital"
+        "https://linkedin.com/company/appdost",
+        "https://twitter.com/appdost_tech",
+        "https://github.com/appdost"
       ],
       "service": [
         {
@@ -77,7 +77,9 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white relative">
       {/* Global 3D Network Background */}
-      <AppDostSphereBackground />
+      <div className="fixed inset-0 z-0">
+        <AppDostSphereBackground />
+      </div>
       
       {/* Header with navigation */}
       <Header />
@@ -142,11 +144,11 @@ function App() {
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <h2 className="text-3xl lg:text-5xl font-display font-bold text-white mb-6">
-              About <span className="text-gradient">TechNova</span>
+              About <span className="text-gradient">AppDost</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-              Founded in 2020, TechNova Digital has been at the forefront of digital innovation, 
-              helping organizations transform their technology landscape and achieve breakthrough results.
+              Founded in 2018, AppDost has been delivering comprehensive IT solutions, 
+              helping businesses across India and globally transform their digital presence with innovative technology.
             </p>
             <div className="glass rounded-3xl p-12 max-w-4xl mx-auto bg-black/30 backdrop-blur-md border border-white/10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">

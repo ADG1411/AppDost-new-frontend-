@@ -133,12 +133,7 @@ const Hero = () => {
       id="hero" 
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Enhanced 3D Network Background */}
-      {!prefersReducedMotion && (
-        <div className="absolute inset-0 z-0">
-          <AppDostSphereBackground />
-        </div>
-      )}
+
 
       {/* Static background for reduced motion */}
       {prefersReducedMotion && (

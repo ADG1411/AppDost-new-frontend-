@@ -8,6 +8,7 @@ import { FaBars, FaTimes } from 'react-icons/fa'
 import { navigation, company } from '../data/content'
 import { cn, scrollToElement } from '../utils/helpers'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import AppDostLogo from './AppDostLogo'
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -106,19 +107,9 @@ const Header = () => {
             {/* Logo */}
             <motion.div
               whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-              className="flex items-center space-x-3 focus-visible"
+              className="focus-visible"
             >
-              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-primary-600 to-accent rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl lg:text-2xl">TN</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="font-display font-bold text-xl lg:text-2xl text-white leading-tight">
-                  {company.name}
-                </h1>
-                <p className="text-xs lg:text-sm text-muted -mt-0.5 leading-tight">
-                  {company.tagline}
-                </p>
-              </div>
+              <AppDostLogo size="md" showTagline={true} />
             </motion.div>
 
             {/* Desktop Navigation */}

@@ -19,14 +19,14 @@ import {
 } from 'react-icons/fa'
 
 export const company = {
-  name: 'TechNova Digital',
-  tagline: 'Innovating Tomorrow, Today.',
-  description: 'Architecting the future of digital experiences with product-led engineering and data-driven design.',
-  founded: '2020',
-  employees: '50+',
-  email: 'hello@technova.digital',
-  phone: '+1 (555) 123-4567',
-  address: '123 Innovation Drive, Tech Valley, CA 94000'
+  name: 'AppDost',
+  tagline: 'Complete IT Solution',
+  description: 'Transforming businesses with cutting-edge technology solutions, innovative development, and comprehensive IT services.',
+  founded: '2018',
+  employees: '75+',
+  email: 'info@appdost.com',
+  phone: '+91 98765 43210',
+  address: 'Tech Hub, Sector 62, Noida, UP 201309, India'
 }
 
 export const navigation = [
@@ -293,22 +293,22 @@ export const team = [
 export const socialLinks = [
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/company/technova-digital',
+    url: 'https://linkedin.com/company/appdost',
     icon: FaLinkedin
   },
   {
     name: 'Twitter',
-    url: 'https://twitter.com/technova_digital',
+    url: 'https://twitter.com/appdost_tech',
     icon: FaTwitter
   },
   {
     name: 'GitHub',
-    url: 'https://github.com/technova-digital',
+    url: 'https://github.com/appdost',
     icon: FaGithub
   },
   {
     name: 'Instagram',
-    url: 'https://instagram.com/technova.digital',
+    url: 'https://instagram.com/appdost.tech',
     icon: FaInstagram
   }
 ]
